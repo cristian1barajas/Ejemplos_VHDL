@@ -1,0 +1,62 @@
+------------------------ Bloque librerias ---------------------------
+
+library IEEE;
+use ieee.STD_LOGIC_1164.all;
+use ieee.STD_LOGIC_ARITH.all;
+
+------------------------- Bloque Entidad ----------------------------
+
+entity Contador is
+	port(
+		clk50mhz : in STD_LOGIC;
+		clk	 :	 in  STD_LOGIC;
+		nibble :  out STD_LOGIC_VECTOR(3 downto 0);
+	)
+end Contador;
+
+---------------------- Bloque Arquitectura --------------------------
+
+architecture Arq_Cont of Contador is
+
+	constant max_count : INTEGER := 25000000;
+	constant max_count_binary : INTEGER := 15;
+	signal count       : INTEGER range 0 to max_count;
+	signal count_binary : INTEGER range 0 to max_count_binary;
+
+begin
+
+	genclock: process(clk50mhz, clk_state, count)
+	begin
+		if rising_edge (clk50mhz) then
+			if count < max_count then 
+				count <= count+1;
+			else
+				count_binary <= count_binary+1;
+				count <= 0;
+			end if;
+		end if;
+	end process;
+	
+	Decodificador: process (count_binary)
+	begin
+		case count_binary is
+       WHEN 0  =>    nibble:="0000";
+       WHEN 1  =>    nibble:="0001";
+       WHEN 2  =>    nibble:="0010";
+       WHEN 3  =>    nibble:="0011";
+		 WHEN 4  =>    nibble:="0100";
+       WHEN 5  =>    nibble:="0101";
+       WHEN 6  =>    nibble:="0110";
+       WHEN 7  =>    nibble:="0111";
+		 WHEN 8  =>    nibble:="1000";
+       WHEN 9  =>    nibble:="1001";
+       WHEN 10 =>    nibble:="1010";
+       WHEN 11 =>    nibble:="1011";
+		 WHEN 12 =>    nibble:="1100";
+       WHEN 13 =>    nibble:="1101";
+       WHEN 14 =>    nibble:="1110";
+       WHEN 15 =>    nibble:="1111";
+     END CASE;
+	end process;
+	
+end Arq_Cont;

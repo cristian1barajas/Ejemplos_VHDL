@@ -1,0 +1,152 @@
+------------------------ Bloque librerias ---------------------------
+
+library IEEE;
+use ieee.STD_LOGIC_1164.all;
+use ieee.STD_LOGIC_ARITH.all;
+
+------------------------- Bloque Entidad ----------------------------
+
+entity Contador_Display is
+	port(
+		clk50mhz : in STD_LOGIC;
+		display_unidades :  out STD_LOGIC_VECTOR(6 downto 0);
+		display_decenas  :  out STD_LOGIC_VECTOR(6 downto 0);
+		display_centenas :  out STD_LOGIC_VECTOR(6 downto 0);
+		display_millares :  out STD_LOGIC_VECTOR(6 downto 0)
+	);
+end Contador_Display;
+
+---------------------- Bloque Arquitectura --------------------------
+
+architecture Arq_Cont of Contador_Display is
+
+	constant max_count : INTEGER := 25000000;
+	constant max_count_decimal : INTEGER := 9;
+	signal count       : INTEGER range 0 to max_count;
+	signal unidad : INTEGER range 0 to max_count_decimal;
+	signal decena : INTEGER range 0 to max_count_decimal;
+	signal centena : INTEGER range 0 to max_count_decimal;
+	signal millar : INTEGER range 0 to max_count_decimal;
+	signal count_unidad : INTEGER range 0 to max_count_decimal;
+	signal count_decena : INTEGER range 0 to max_count_decimal;
+	signal count_centena : INTEGER range 0 to max_count_decimal;
+	signal count_millar : INTEGER range 0 to max_count_decimal;
+
+begin
+
+	genclock: process(clk50mhz, count)
+	begin
+		if rising_edge (clk50mhz) then
+			if count < max_count then 
+				count <= count+1;
+			else 
+				unidad <= unidad+1;
+				count <= 0;
+			end if;
+		end if;
+	end process;
+	
+	Unidades: process (count_unidad)
+	begin
+		case count_unidad is
+       WHEN 0  =>    display_unidades<="1000000";
+       WHEN 1  =>    display_unidades<="1111001";
+       WHEN 2  =>    display_unidades<="0100100";
+       WHEN 3  =>    display_unidades<="0110000";
+		 WHEN 4  =>    display_unidades<="0011001";
+       WHEN 5  =>    display_unidades<="0010010";
+       WHEN 6  =>    display_unidades<="0000010";
+       WHEN 7  =>    display_unidades<="1111000";
+		 WHEN 8  =>    display_unidades<="0000000";
+       WHEN 9  =>    display_unidades<="0010000";
+     END CASE;
+	end process;
+	
+	Incremento_Decenas: process (unidad)
+	begin
+		if count_unidad < max_count_decimal then 
+			count_unidad <= count_unidad+1;
+		else
+			decena <= decena+1;
+			count_unidad <= 0;
+		end if;
+	end process;	
+	
+	Decenas: process (count_decena)
+	begin
+		case count_binary is
+       WHEN 0  =>    display_decenas<="1000000";
+       WHEN 1  =>    display_decenas<="1111001";
+       WHEN 2  =>    display_decenas<="0100100";
+       WHEN 3  =>    display_decenas<="0110000";
+		 WHEN 4  =>    display_decenas<="0011001";
+       WHEN 5  =>    display_decenas<="0010010";
+       WHEN 6  =>    display_decenas<="0000010";
+       WHEN 7  =>    display_decenas<="1111000";
+		 WHEN 8  =>    display_decenas<="0000000";
+       WHEN 9  =>    display_decenas<="0010000";
+     END CASE;
+	end process;
+	
+	Incremento_Centenas: process (decena)
+	begin
+		if count_decena < max_count_decimal then 
+			count_decena <= count_decena+1;
+		else
+			centena <= centena+1;
+			count_decena <= 0;
+		end if;
+	end process;	
+	
+	Centenas: process (count_centena)
+	begin
+		case count_binary is
+       WHEN 0  =>    display_centenas<="1000000";
+       WHEN 1  =>    display_centenas<="1111001";
+       WHEN 2  =>    display_centenas<="0100100";
+       WHEN 3  =>    display_centenas<="0110000";
+		 WHEN 4  =>    display_centenas<="0011001";
+       WHEN 5  =>    display_centenas<="0010010";
+       WHEN 6  =>    display_centenas<="0000010";
+       WHEN 7  =>    display_centenas<="1111000";
+		 WHEN 8  =>    display_centenas<="0000000";
+       WHEN 9  =>    display_centenas<="0010000";
+     END CASE;
+	end process;
+	
+	Incremento_Millares: process (centena)
+	begin
+		if count_centena < max_count_decimal then 
+			count_centena <= count_centena+1;
+		else
+			millar <= millar+1;
+			count_centena <= 0;
+		end if;
+	end process;	
+	
+	Millares: process (count_millar)
+	begin
+		case count_binary is
+       WHEN 0  =>    display_millares<="1000000";
+       WHEN 1  =>    display_millares<="1111001";
+       WHEN 2  =>    display_millares<="0100100";
+       WHEN 3  =>    display_millares<="0110000";
+		 WHEN 4  =>    display_millares<="0011001";
+       WHEN 5  =>    display_millares<="0010010";
+       WHEN 6  =>    display_millares<="0000010";
+       WHEN 7  =>    display_millares<="1111000";
+		 WHEN 8  =>    display_millares<="0000000";
+       WHEN 9  =>    display_millares<="0010000";
+     END CASE;
+	end process;
+	
+	Reinicio_Millares: process (millar)
+	begin
+		if count_millar < max_count_decimal then 
+			count_millar <= count_millar+1;
+		else
+			count_millar <= 0;
+		end if;
+	end process;	
+	
+end Arq_Cont;

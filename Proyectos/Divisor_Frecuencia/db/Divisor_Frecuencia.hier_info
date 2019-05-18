@@ -1,0 +1,30 @@
+|Divisor_Frecuencia
+clk50mhz => clk_state.CLK
+clk50mhz => count[0].CLK
+clk50mhz => count[1].CLK
+clk50mhz => count[2].CLK
+clk50mhz => count[3].CLK
+clk50mhz => count[4].CLK
+clk50mhz => count[5].CLK
+clk50mhz => count[6].CLK
+clk50mhz => count[7].CLK
+clk50mhz => count[8].CLK
+clk50mhz => count[9].CLK
+clk50mhz => count[10].CLK
+clk50mhz => count[11].CLK
+clk50mhz => count[12].CLK
+clk50mhz => count[13].CLK
+clk50mhz => count[14].CLK
+clk50mhz => count[15].CLK
+clk50mhz => count[16].CLK
+clk50mhz => count[17].CLK
+clk50mhz => count[18].CLK
+clk50mhz => count[19].CLK
+clk50mhz => count[20].CLK
+clk50mhz => count[21].CLK
+clk50mhz => count[22].CLK
+clk50mhz => count[23].CLK
+clk50mhz => count[24].CLK
+clk <= clk_state.DB_MAX_OUTPUT_PORT_TYPE
+
+

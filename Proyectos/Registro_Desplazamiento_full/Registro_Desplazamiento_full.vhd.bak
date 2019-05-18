@@ -1,0 +1,30 @@
+------------------- Bloque librerias --------------------
+
+library IEEE;
+use ieee.STD_LOGIC_1164.all;
+
+-------------------- Bloque entidad ---------------------
+
+entity Registro_Desplazamiento is
+	port(
+		clk	 : in STD_LOGIC;
+		D	 	 : in STD_LOGIC;
+		Q      : out STD_LOGIC
+	);
+end Registro_Desplazamiento;
+
+------------------ Bloque Arquitectura ------------------
+
+architecture Arq_Reg of Registro_Desplazamiento is
+	signal DA, DB, DC : STD_LOGIC;
+begin
+	process (clk)
+	begin
+		if falling_edge (clk) then
+			DA <= input;
+			DB <= DA;
+			DC <= DB;
+			Q  <= DC;
+		end if;
+	end process;
+end Arq_Reg;	

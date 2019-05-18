@@ -1,0 +1,25 @@
+---------- Ejemplo de comportamiento de una compuerta AND ----------
+
+------------------------ Bloque librerias --------------------------
+
+library IEEE;
+use ieee.STD_LOGIC_1164.all;
+
+------------------------- Bloque entidad ---------------------------
+
+entity Example_And is
+	port (
+		input_1 : in STD_LOGIC;
+		input_2 : in STD_LOGIC;
+		output  : out STD_LOGIC
+	);
+end And;
+
+----------------------- Bloque arquitectura ------------------------
+
+architecture Arq_And of Example_And is
+	signal and_gate : STD_LOGIC;
+begin
+	and_gate <= input_1 and input_2;
+	output <= and_gate;
+end Arq_And;

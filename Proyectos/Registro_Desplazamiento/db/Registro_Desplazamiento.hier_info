@@ -1,0 +1,6 @@
+|Registro_Desplazamiento
+clk => output~reg0.CLK
+input => output~reg0.DATAIN
+output <= output~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

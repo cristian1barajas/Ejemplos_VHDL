@@ -1,0 +1,6 @@
+|Example_Or
+input_1 => or_gate.IN0
+input_2 => or_gate.IN1
+output <= or_gate.DB_MAX_OUTPUT_PORT_TYPE
+
+
